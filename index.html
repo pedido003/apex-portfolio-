@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jerome Pedido | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-image: url('hinata.png'); /* Pangalan ng file mo */
+            background-size: cover;              /* Sakop buong screen */
+            background-position: center;         /* Sentro ang focus */
+            background-repeat: no-repeat;        /* Hindi uulit ang image */
+            background-attachment: fixed;        /* Hindi gagalaw pag nag-scroll */
+            background-color: rgba(0,0,0,0.5);   /* Tinanggal ang typo dito */
+        }
+
+        /* --- PRELOADER --- */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #030712; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s ease; }
+        .spinner { width: 50px; height: 50px; border: 3px solid #1f2937; border-top: 3px solid #06b6d4; border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .hidden { opacity: 0; }
+        #main-content { transition: opacity 0.6s ease-in-out; }
+
+        /* --- NAVIGATION BAR --- */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 6%; background: rgba(3, 7, 18, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); position: sticky; top: 0; z-index: 100; }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+        .logo span { color: #06b6d4; }
+        nav ul { display: flex; list-style: none; gap: 25px; }
+        nav ul li a { color: #9ca3af; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { color: #06b6d4; }
+
+        /* --- HERO SECTION --- */
+        .hero { min-height: calc(100vh - 73px); display: flex; align-items: center; padding: 40px 6%; position: relative; background: radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.05) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 40%); }
+        .hero-content { max-width: 800px; }
+        .greeting { color: #06b6d4; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; font-weight: 700; display: inline-block; background: rgba(6, 182, 212, 0.08); padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(6, 182, 212, 0.15); }
+        .hero-content h1 { font-size: 3.2rem; font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin-bottom: 15px; color: #ffffff; }
+        .hero-content h1 span { background: linear-gradient(to right, #06b6d4, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-content h2 { font-size: 1.4rem; color: #e5e7eb; margin-bottom: 25px; font-weight: 400; min-height: 40px; }
+        #typing-text { color: #06b6d4; font-weight: 600; border-right: 2px solid #06b6d4; padding-right: 3px; }
+        
+        /* --- GOLD DESIGN SA QUOTE --- */
+        .desc { 
+            color: #FFD700; /* Gold */
+            font-size: 1.05rem; 
+            line-height: 1.7; 
+            max-width: 620px; 
+            margin-bottom: 30px; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9); /* Shadow para lumitaw */
+            font-weight: 600;
+        }
+
+/* --- WHITE DESIGN SA QUOTE --- */
+.desc { 
+    color: #ffffff; /* Purong puti para malinis */
+    font-size: 1.05rem; 
+    line-height: 1.7; 
+    max-width: 620px; 
+    margin-bottom: 30px; 
+    /* Pinalakas na shadow para madaling basahin kahit nakatapat sa puting damit */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 1), 0 0 4px rgba(0, 0, 0, 0.8); 
+    font-weight: 500;
+}
+
+/* --- CYAN & WHITE DESIGN SA SOCIAL LINKS --- */
+.social-links { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+.social-badge { 
+    display: inline-flex; 
+    align-items: center; 
+    padding: 8px 16px; 
+    background: rgba(3, 7, 18, 0.85); /* Madilim na background para litaw ang text */
+    border: 1px solid rgba(6, 182, 212, 0.3); /* Cyan border para terno sa branding mo */
+    border-radius: 6px; 
+    color: #ffffff; /* Puti ang text para madaling basahin */
+    text-decoration: none; 
+    font-size: 0.85rem; 
+    font-weight: 600; 
+    transition: all 0.3s ease; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+.social-badge:hover { 
+    color: #06b6d4; /* Magiging kulay Cyan kapag tinuturo (hover) */
+    border-color: rgba(6, 182, 212, 0.8); 
+    background: rgba(6, 182, 212, 0.08); 
+    transform: translateY(-2px); 
+}
+
+
+        .cta-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 30px; text-decoration: none; font-size: 0.95rem; font-weight: 600; border-radius: 8px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, #06b6d4, #4f46e5); color: #ffffff; box-shadow: 0 4px 20px rgba(6, 182, 212, 0.25); border: none; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(6, 182, 212, 0.4); opacity: 0.95; }
+        .btn-secondary { background: rgba(255, 255, 255, 0.03); color: #e5e7eb; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); color: #ffffff; transform: translateY(-2px); }
+
+        @media (max-width: 640px) { .hero-content h1 { font-size: 2.3rem; } nav ul { display: none; } }
+    </style>
+</head>
+<body>
+    <div id="preloader"><div class="spinner"></div></div>
+    <div id="main-content" class="hidden">
+        <nav>
+            <div class="logo">𝕵𝖊𝖗𝖔𝖒𝖊 <span> 𝕻𝖊𝖉𝖎𝖉𝖔</span></div>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="">Projects</a></li>
+            </ul>
+        </nav>
+
+        <header class="hero">
+            <div class="hero-content">
+                <span class="greeting">Available for Freelance & Contract</span>
+                <h1>Hi, I'm <span>Jerome Pedido</span></h1>
+                <h2>Specialized in <span id="typing-text"></span></h2>
+                <p class="desc">
+𝔗𝔥𝔢 𝔄𝔯𝔱 𝔒𝔣 𝔚𝔞𝔯
+
+"I𝔣 𝔶𝔬𝔲 𝔨𝔫𝔬𝔴 𝔱𝔥𝔢 𝔢𝔫𝔢𝔪𝔶 𝔞𝔫𝔡 𝔨𝔫𝔬𝔴 𝔶𝔬𝔲𝔯𝔰𝔢𝔩𝔣,
+𝔶𝔬𝔲 𝔫𝔢𝔢𝔡 𝔫𝔬𝔱 𝔣𝔢𝔞𝔯 𝔱𝔥𝔢 𝔯𝔢𝔰𝔲𝔩𝔱 𝔬𝔣 𝔞 𝔥𝔲𝔫𝔡𝔯𝔢𝔡 𝔟𝔞𝔱𝔱𝔩𝔢𝔰."
+
+- 𝔖𝔲𝔫 𝔱𝔷𝔲 </p>
+                
+                <div class="social-links">
+                    <a href="https://github.com/Pedido003" class="social-badge">🔗 GitHub Profile</a>
+                    <a href="https://www.kaggle.com/jeromepedido" class="social-badge">📊 Kaggle Competitions</a>
+                    <a href="https://www.linkedin.com/in/jerome-pedido-510546416/" class="social-badge">💼 LinkedIn Network</a>
+<a href="browser.html" class="social-badge">🌎 Web Browser </a>
+                    <a href="python.html" class="social-badge">🐍 Python Framework</a>                    <a href="new.html" class="social-badge">🧮 Calculator</a>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="portfolio.html" class="btn btn-primary">Explore Projects</a>
+                    <a href="https://ais-pre-ri77d5g3nwpjwlvczrtzks-437414308036.asia-southeast1.run.app/" class="btn btn-primary">Forum</a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const preloader = document.getElementById('preloader');
+            const mainContent = document.getElementById('main-content');
+            setTimeout(() => {
+                preloader.style.opacity = '0'; preloader.style.visibility = 'hidden';
+                mainContent.classList.remove('hidden');
+                initTyping();
+            }, 800);
+        });
+
+        function initTyping() {
+            new Typed('#typing-text', {
+                strings: ['Python Development.', 'Web Scraping & Data Extraction.', 'Automation & Scripting.'],
+                typeSpeed: 60, backSpeed: 40, backDelay: 1800, loop: true, showCursor: false
+            });
+        }
+    </script>
+</body>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
+
+  const firebaseConfig = {
+  apiKey: "YOUR_FIREBASE_API_KEY_HERE", 
+  authDomain: "my-portfolio-web-2472d.firebaseapp.com",
+  ...
+};
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+</html>

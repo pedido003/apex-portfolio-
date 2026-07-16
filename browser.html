@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Custom Browser</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        h2 { margin-bottom: 20px; font-weight: 600; color: #007aff; }
+        .search-box { display: flex; gap: 8px; }
+        input { 
+            flex: 1; 
+            padding: 12px 15px; 
+            border: 1px solid #d2d2d7; 
+            border-radius: 10px; 
+            font-size: 16px;
+            outline: none;
+        }
+        input:focus { border-color: #007aff; }
+        button { 
+            padding: 12px 20px; 
+            background: #007aff; 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer; 
+        }
+        button:hover { background: #0051a3; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>ApexCipher Browser</h2>
+        <!-- Tinanggal ang default action para JavaScript ang mag-handle -->
+        <form class="search-box" onsubmit="return handleSearch(event)">
+            <input type="text" id="queryInput" placeholder="Mag-type ng URL o i-search..." required>
+            <button type="submit">Go</button>
+        </form>
+    </div>
+
+    <script>
+        function handleSearch(event) {
+            event.preventDefault(); // Pigilan ang default reload ng form
+            
+            const input = document.getElementById('queryInput').value.trim();
+            
+            // Regex para i-check kung mukhang website/URL ang tinype (may .com, .net, http, etc.)
+            const urlPattern = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/;
+            const isLocalhost = input.startsWith('localhost') || input.startsWith('127.0.0.1');
+
+            if (urlPattern.test(input) || isLocalhost) {
+                // KUNG URL: Awtomatikong lagyan ng http:// kung wala pa
+                let targetUrl = input;
+                if (!/^https?:\/\//i.test(input)) {
+                    targetUrl = 'http://' + input;
+                }
+                // Ipasa sa Python backend mo via /go
+                window.location.href = '/go?query=' + encodeURIComponent(targetUrl);
+            } else {
+                // KUNG HINDI URL: I-search diretso sa Google
+                window.location.href = 'https://www.google.com/search?q=' + encodeURIComponent(input);
+            }
+        }
+    </script>
+
+</body>
+</html>
